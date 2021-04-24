@@ -17,14 +17,6 @@ public class CategoriaController {
     @PersistenceContext
     private EntityManager manager;
 
-    @Autowired
-    private ProibeNomeCategoriaDuplicadoValidator validator;
-
-    @InitBinder
-    public void init(WebDataBinder binder) {
-        binder.addValidators(validator);
-    }
-
     @PostMapping
     @Transactional
     public ResponseEntity<CategoriaResponse> cadastrar(@RequestBody @Valid CategoriaRequest categoriaRequest) {

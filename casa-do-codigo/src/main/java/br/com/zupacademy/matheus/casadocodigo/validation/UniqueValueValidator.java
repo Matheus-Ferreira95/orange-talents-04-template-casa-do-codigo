@@ -1,30 +1,31 @@
 package br.com.zupacademy.matheus.casadocodigo.validation;
 
-import br.com.zupacademy.matheus.casadocodigo.autor.Autor;
-import br.com.zupacademy.matheus.casadocodigo.autor.AutorRepository;
-import br.com.zupacademy.matheus.casadocodigo.autor.AutorRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Optional;
+import java.util.List;
 
-public class UniqueValueValidator implements ConstraintValidator<UniqueValue, AutorRequest> {
+public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Object> {
 
-    @Autowired
-    private AutorRepository autorRepository;
+    private String domainAttribute;
+    private Class<?> klass;
+
+    @PersistenceContext
+    private EntityManager manager;
 
     @Override
-    public boolean isValid(AutorRequest request, ConstraintValidatorContext context) {
-        Optional<Autor> autor = autorRepository.findByEmail(request.getEmail());
+    public void initialize(UniqueValue params) {
+        domainAttribute = params.fieldName();
+        klass = params.domainClass();
+    }
 
-        if (autor.isPresent()) {
-            context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Email já cadastrado, informe outro email.")
-                    .addPropertyNode("email")
-                    .addConstraintViolation();
-        }
-
-        return autor.isEmpty();
+    @Override
+    public boolean isValid(Object value, ConstraintValidatorContext context) {
+        Query query = manager.createQuery("select 1 from " + klass.getName() + " where " + domainAttribute+"=:value");
+        query.setParameter("value", value);
+        List<?> list = query.getResultList();
+        return list.isEmpty();
     }
 }

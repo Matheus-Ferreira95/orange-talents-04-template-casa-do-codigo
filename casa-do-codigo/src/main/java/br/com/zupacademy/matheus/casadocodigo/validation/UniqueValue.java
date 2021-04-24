@@ -2,18 +2,20 @@ package br.com.zupacademy.matheus.casadocodigo.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
+@Documented
 @Constraint(validatedBy = UniqueValueValidator.class)
-@Target({ ElementType.TYPE })
+@Target({ ElementType.FIELD }) //TYPE acho que é para anotação na classe, field em campos (atributos)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UniqueValue {
-    String message() default "Erro de validação";
+    String message() default "{br.com.zupacademy.matheus.casadocodigo.uniquevalue}";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
+    String fieldName();
+
+    Class<?> domainClass();
 }
