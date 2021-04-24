@@ -1,4 +1,4 @@
-package br.com.zupacademy.matheus.casadocodigo.validacao;
+package br.com.zupacademy.matheus.casadocodigo.handler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

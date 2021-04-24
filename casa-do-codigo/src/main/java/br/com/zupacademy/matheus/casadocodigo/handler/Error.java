@@ -1,4 +1,4 @@
-package br.com.zupacademy.matheus.casadocodigo.validacao;
+package br.com.zupacademy.matheus.casadocodigo.handler;
 
 public class Error {
 

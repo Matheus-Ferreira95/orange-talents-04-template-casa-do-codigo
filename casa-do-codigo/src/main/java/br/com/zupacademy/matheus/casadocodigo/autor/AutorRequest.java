@@ -1,11 +1,12 @@
 package br.com.zupacademy.matheus.casadocodigo.autor;
 
+import br.com.zupacademy.matheus.casadocodigo.validation.UniqueValue;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 
+@UniqueValue
 public class AutorRequest {
 
     @NotBlank
@@ -21,6 +22,10 @@ public class AutorRequest {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public Autor toModel() {

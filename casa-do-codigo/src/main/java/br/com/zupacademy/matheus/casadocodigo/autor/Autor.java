@@ -3,10 +3,7 @@ package br.com.zupacademy.matheus.casadocodigo.autor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
@@ -20,7 +17,9 @@ public class Autor {
     @NotBlank
     private String nome;
 
-    @Email @NotBlank
+    @Email
+    @NotBlank
+    @Column(unique = true)
     private String email;
 
     @NotBlank @Length(max = 400)
