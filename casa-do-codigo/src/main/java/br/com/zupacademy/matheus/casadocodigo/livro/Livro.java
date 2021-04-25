@@ -5,6 +5,7 @@ import br.com.zupacademy.matheus.casadocodigo.categoria.Categoria;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -40,14 +41,18 @@ public class Livro {
     @Deprecated
     public Livro() {}
 
-    public Livro(LivroRequest livroRequest) {
-        this.titulo = livroRequest.getTitulo();
-        this.resumo = livroRequest.getResumo();
-        this.sumario = livroRequest.getSumario();
-        this.preco = livroRequest.getPreco();
-        this.paginas = livroRequest.getPaginas();
-        this.isbn = livroRequest.getIsbn();
-        this.dataLancamento = livroRequest.getDataLancamento();
+    public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, @NotBlank String sumario,
+                 @NotNull @Min(20) BigDecimal preco, @NotNull @Min(100) Integer paginas, @NotBlank String isbn,
+                 @Future LocalDate dataLancamento, Autor autor, Categoria categoria) {
+        this.titulo = titulo;
+        this.resumo = resumo;
+        this.sumario = sumario;
+        this.preco = preco;
+        this.paginas = paginas;
+        this.isbn = isbn;
+        this.dataLancamento = dataLancamento;
+        this.autor = autor;
+        this.categoria = categoria;
     }
 
     public void setCategoria(Categoria categoria) {
@@ -56,5 +61,21 @@ public class Livro {
 
     public void setAutor(Autor autor) {
         this.autor = autor;
+    }
+
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", resumo='" + resumo + '\'' +
+                ", sumario='" + sumario + '\'' +
+                ", preco=" + preco +
+                ", paginas=" + paginas +
+                ", isbn='" + isbn + '\'' +
+                ", dataLancamento=" + dataLancamento +
+                ", categoria=" + categoria +
+                ", autor=" + autor +
+                '}';
     }
 }

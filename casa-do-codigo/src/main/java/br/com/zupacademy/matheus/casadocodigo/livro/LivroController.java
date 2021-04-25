@@ -20,9 +20,9 @@ public class LivroController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Void> cadastrar(@RequestBody @Valid LivroRequest livroRequest) {
+    public ResponseEntity<String> cadastrar(@RequestBody @Valid LivroRequest livroRequest) {
         Livro livro = livroRequest.toModel(manager);
         manager.persist(livro);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(livro.toString());
     }
 }

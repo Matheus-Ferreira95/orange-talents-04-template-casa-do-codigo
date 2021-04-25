@@ -2,8 +2,11 @@ package br.com.zupacademy.matheus.casadocodigo.livro;
 
 import br.com.zupacademy.matheus.casadocodigo.autor.Autor;
 import br.com.zupacademy.matheus.casadocodigo.categoria.Categoria;
+import br.com.zupacademy.matheus.casadocodigo.validation.ExistsId;
 import br.com.zupacademy.matheus.casadocodigo.validation.UniqueValue;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.*;
@@ -20,6 +23,7 @@ public class LivroRequest {
     @Size(max = 500)
     private String resumo;
 
+    @NotBlank
     private String sumario;
 
     @NotNull
@@ -35,18 +39,21 @@ public class LivroRequest {
     private String isbn;
 
     @Future
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
+    @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate dataLancamento;
 
     @NotNull
+    @ExistsId(domainClass = Categoria.class, fieldName = "id", message = "Categoria não existente no banco de dados")
     private Long categoriaId;
 
     @NotNull
+    @ExistsId(domainClass = Autor.class, fieldName = "id", message = "Autor não existente no banco de dados")
     private Long autorId;
 
     public LivroRequest(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario,
                         @NotNull @Min(20) BigDecimal preco, @NotNull @Min(100) Integer paginas,
-                        @NotBlank String isbn, @Future LocalDate dataLancamento, @NotNull Long categoriaId,
+                        @NotBlank String isbn, @NotNull Long categoriaId,
                         @NotNull Long autorId) {
         this.titulo = titulo;
         this.resumo = resumo;
@@ -54,7 +61,6 @@ public class LivroRequest {
         this.preco = preco;
         this.paginas = paginas;
         this.isbn = isbn;
-        this.dataLancamento = dataLancamento;
         this.categoriaId = categoriaId;
         this.autorId = autorId;
     }
@@ -87,12 +93,20 @@ public class LivroRequest {
         return dataLancamento;
     }
 
+    /*
+        setter criado pq o jackson não estava sendo capaz de desserializar o json com a data pelo construtor
+     */
+    public void setDataLancamento(LocalDate dataLancamento) {
+        this.dataLancamento = dataLancamento;
+    }
+
     public Livro toModel(EntityManager manager) {
         Categoria categoria = manager.find(Categoria.class, this.categoriaId);
         Autor autor = manager.find(Autor.class, this.autorId);
-        Livro livro = new Livro(this);
-        livro.setAutor(autor);
-        livro.setCategoria(categoria);
-        return livro;
+
+        Assert.state(autor != null, "Você esta querendo cadastrar um livro para um autor inexistente " + autorId);
+        Assert.state(categoria != null, "Você esta querendo cadastrar um livro para uma categoria inexistente " + categoriaId);
+
+        return new Livro(titulo, resumo, sumario, preco, paginas, isbn, dataLancamento, autor, categoria);
     }
 }
