@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/livros")
-public class LivroController {
+public class LivroCadastroController {
 
     @PersistenceContext
     private EntityManager manager;

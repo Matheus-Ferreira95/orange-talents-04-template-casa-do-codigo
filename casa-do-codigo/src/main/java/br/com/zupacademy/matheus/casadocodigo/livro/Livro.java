@@ -55,12 +55,12 @@ public class Livro {
         this.categoria = categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setAutor(Autor autor) {
-        this.autor = autor;
+    public Long getId() {
+        return id;
     }
 
     @Override
