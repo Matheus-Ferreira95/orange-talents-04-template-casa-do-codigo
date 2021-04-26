@@ -24,7 +24,6 @@ public class ClienteRequest {
     @NotBlank
     private String sobrenome;
 
-    @NotBlank
     @CpfOuCnpj(fieldName = "documento", message = "CPF ou CNPJ inválidos.")
     @UniqueValue(domainClass = Cliente.class, fieldName = "documento", message = "CPF ou CNPJ já cadastrados")
     private String documento;
