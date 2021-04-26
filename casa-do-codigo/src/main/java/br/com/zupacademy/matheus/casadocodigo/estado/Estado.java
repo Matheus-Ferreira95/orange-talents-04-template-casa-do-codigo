@@ -3,6 +3,7 @@ package br.com.zupacademy.matheus.casadocodigo.estado;
 import br.com.zupacademy.matheus.casadocodigo.pais.Pais;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Estado {
@@ -38,7 +39,25 @@ public class Estado {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Estado estado = (Estado) o;
+        return id.equals(estado.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
     public String getNomePais() {
         return pais.getNome();
+    }
+
+
+    public String getNome() {
+        return nome;
     }
 }

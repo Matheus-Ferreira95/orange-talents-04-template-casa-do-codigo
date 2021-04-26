@@ -28,4 +28,10 @@ public class ExceptionHancler {
         }
         return erros;
     }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalStateException.class)
+    public Error illegalArgument(IllegalStateException e) {
+        return new Error("estadoId", e.getMessage());
+    }
 }

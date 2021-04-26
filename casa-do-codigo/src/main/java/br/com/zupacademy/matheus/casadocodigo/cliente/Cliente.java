@@ -2,6 +2,7 @@ package br.com.zupacademy.matheus.casadocodigo.cliente;
 
 import br.com.zupacademy.matheus.casadocodigo.estado.Estado;
 import br.com.zupacademy.matheus.casadocodigo.pais.Pais;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 
@@ -66,6 +67,8 @@ public class Cliente {
     }
 
     public void setEstado(Estado estado) {
+        Assert.state(pais.equals(estado.getPais()), "O estado " + estado.getNome() + " não pertence ao país " + this.pais.getNome());
+        // capturo a possivel IllegalStateException lá no exception handler
         this.estado = estado;
     }
 }
