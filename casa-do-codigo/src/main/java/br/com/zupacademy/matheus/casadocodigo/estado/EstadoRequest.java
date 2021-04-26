@@ -13,7 +13,7 @@ public class EstadoRequest {
     private String nome;
 
     @NotNull
-    @ExistsId(domainClass = Pais.class,  fieldName = "id", message = "Não foi encontrado um páis com este id")
+    @ExistsId(domainClass = Pais.class,  fieldName = "id", message = "Não foi encontrado um país com este id")
     private Long idPais;
 
     public EstadoRequest(@NotBlank String nome, @NotNull Long idPais) {
