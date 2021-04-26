@@ -1,6 +1,6 @@
 package br.com.zupacademy.matheus.casadocodigo.validation;
 
-import br.com.zupacademy.matheus.casadocodigo.validation.util.ValidacaoCpfOuCnpj;
+import br.com.zupacademy.matheus.casadocodigo.validation.util.ValidacCpfOuCnpj;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -20,7 +20,7 @@ public class CpfOuCnpjValidator implements ConstraintValidator<CpfOuCnpj, String
         cpfOuCnpj = cpfOuCnpj.replaceAll("\\D", "");
 
         // se ambos forem falso é por que ambos não são validos
-        if (!ValidacaoCpfOuCnpj.isValidCNPJ(cpfOuCnpj) && !ValidacaoCpfOuCnpj.isValidCPF(cpfOuCnpj)) {
+        if (!ValidacCpfOuCnpj.isValidCNPJ(cpfOuCnpj) && !ValidacCpfOuCnpj.isValidCPF(cpfOuCnpj)) {
             return false;
         }
         return true;
