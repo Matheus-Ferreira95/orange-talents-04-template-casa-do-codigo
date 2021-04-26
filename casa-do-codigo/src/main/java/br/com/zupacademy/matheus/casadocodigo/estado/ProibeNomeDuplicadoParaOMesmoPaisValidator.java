@@ -8,7 +8,7 @@ import org.springframework.validation.Validator;
 import java.util.Optional;
 
 @Component
-public class ProibeNomeDuplicadoParaOMesmoPais implements Validator {
+public class ProibeNomeDuplicadoParaOMesmoPaisValidator implements Validator {
 
     @Autowired
     private EstadoRepository estadoRepository;

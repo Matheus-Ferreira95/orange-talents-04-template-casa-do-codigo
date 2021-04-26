@@ -12,6 +12,7 @@ public class Pais {
     @Column(unique = true, nullable = false)
     private String nome;
 
+    @Deprecated
     public Pais() {
     }
 

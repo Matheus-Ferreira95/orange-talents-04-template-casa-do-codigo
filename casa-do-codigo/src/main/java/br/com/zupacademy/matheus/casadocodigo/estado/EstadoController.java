@@ -18,7 +18,7 @@ public class EstadoController {
     private EntityManager manager;
 
     @Autowired
-    private ProibeNomeDuplicadoParaOMesmoPais validation;
+    private ProibeNomeDuplicadoParaOMesmoPaisValidator validation;
 
     @InitBinder
     public void init(WebDataBinder binder) {

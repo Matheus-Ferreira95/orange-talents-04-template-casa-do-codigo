@@ -16,6 +16,7 @@ public class Estado {
     @ManyToOne
     private Pais pais;
 
+    @Deprecated
     public Estado() {
     }
 
