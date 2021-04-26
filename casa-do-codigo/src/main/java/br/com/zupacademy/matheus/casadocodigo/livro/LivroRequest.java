@@ -5,7 +5,6 @@ import br.com.zupacademy.matheus.casadocodigo.categoria.Categoria;
 import br.com.zupacademy.matheus.casadocodigo.validation.ExistsId;
 import br.com.zupacademy.matheus.casadocodigo.validation.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
