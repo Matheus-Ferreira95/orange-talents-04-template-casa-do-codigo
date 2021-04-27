@@ -5,6 +5,9 @@ import br.com.zupacademy.matheus.casadocodigo.pais.Pais;
 import br.com.zupacademy.matheus.casadocodigo.validation.CpfOuCnpj;
 import br.com.zupacademy.matheus.casadocodigo.validation.ExistsId;
 import br.com.zupacademy.matheus.casadocodigo.validation.UniqueValue;
+import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
+import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
+import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.Email;
@@ -84,4 +87,19 @@ public class ClienteRequest {
         }
         return cliente;
     }
+    /* Apenas para questão de estudo, fiquei de cara com a maneira que o alberto fez essas validações kk
+    public boolean documentoValido() {
+        Assert.hasLength(documento,
+                "você nao deveria validar o documento se ele não tiver sido preenchido");
+
+        CPFValidator cpfValidator = new CPFValidator();
+        cpfValidator.initialize(null);
+
+        CNPJValidator cnpjValidator = new CNPJValidator();
+        cnpjValidator.initialize(null);
+
+        return cpfValidator.isValid(documento, null)
+                || cnpjValidator.isValid(documento, null);
+    }
+     */
 }
