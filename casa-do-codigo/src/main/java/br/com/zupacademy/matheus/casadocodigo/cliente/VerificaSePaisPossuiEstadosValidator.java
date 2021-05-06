@@ -21,6 +21,7 @@ public class VerificaSePaisPossuiEstadosValidator implements Validator {
         return ClienteRequest.class.isAssignableFrom(aClass);
     }
 
+
     @Override
     public void validate(Object o, Errors errors) {
         if (errors.hasErrors()) {
